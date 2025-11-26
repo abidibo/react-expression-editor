@@ -5,11 +5,10 @@
 .editor {
   border: 1px solid #666;
   padding: 10px;
-  minheight: 40px;
-  fontfamily: monospace;
-  whitespace: pre-wrap;
+  font-family: monospace;
+  white-space: pre-wrap;
   outline: none;
-  lineheight: 1.5;
+  line-height: 1.5;
 }
 
 .validation {

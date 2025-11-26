@@ -101,14 +101,15 @@ export const useAutocomplete = (
 
     // add a space after if it's a variable
     const suffix = suggestion === Operator.NOT ? '' : ' '
-    const newText = beforeToken + suggestion + suffix + afterToken
+    const prefix = token.type === TokenType.SPACE ? ' ' : ''
+    const newText = beforeToken + prefix + suggestion + suffix + afterToken
 
     // update
     setText(newText)
     updateHtml(newText)
 
     // move the cursor to the end of inserted word + suffix
-    cursorRef.current = token.start + suggestion.length + suffix.length
+    cursorRef.current = token.start + prefix.length + suggestion.length + suffix.length
 
     setShowMenu(false)
 
