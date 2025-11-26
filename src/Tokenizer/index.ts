@@ -17,7 +17,7 @@ export const Patterns = [
   { type: TokenType.UNARY_OP, regex: /^!/ },
   { type: TokenType.OPEN_P, regex: /^\(/ },
   { type: TokenType.CLOSE_P, regex: /^\)/ },
-  { type: TokenType.VAR, regex: /^[a-zA-Z_]\w*/ },
+  { type: TokenType.VAR, regex: /^[a-zA-Z_][\w.]*/ },
 ]
 
 export interface Token {
