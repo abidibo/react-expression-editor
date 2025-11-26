@@ -76,7 +76,7 @@ const Editor: React.FC<EditorProps> = ({
       // We need to restore the cursor position after the DOM updates, otherwise it will always be at the beginning
       setCaretIndex(editorRef.current, cursorRef.current)
     }
-  }, [html]) // Runs whenever HTML updates
+  }, [html, showMenu, selectedIndex]) // ahould run every time the editable content is rendered
 
   return (
     <div className={cssClass(styles.root, classes?.root)}>

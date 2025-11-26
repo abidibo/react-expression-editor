@@ -3,6 +3,7 @@ import { MutableRefObject, RefObject, useState } from 'react'
 import { EditorClasses } from './Components/Editor'
 import { generateHighlightHtml, getCursorXY } from './Components/Editor/Helpers'
 import { Operator } from './Config/Operators'
+import { MachineState } from './StateMachine/States'
 import { validate, ValidationResult } from './StateMachine/Validation'
 import { getActiveToken, tokenize, TokenType } from './Tokenizer'
 
@@ -60,6 +61,35 @@ export const useAutocomplete = (
     setShowMenu(false)
   }
 
+  const showStateSuggestions = (plainText: string) => {
+    // Check what is under the cursor
+    const { state } = validate(tokenize(plainText), variables, false)
+
+    const matches =
+      state == MachineState.EXPECT_OPERAND
+        ? [...variables, Operator.NOT]
+        : Object.values(Operator).filter((op) => op !== Operator.NOT)
+
+    if (matches.length > 0) {
+      const coords = getCursorXY()
+      if (coords?.left === 0 && coords?.top === 0) {
+        const rect = editorRef.current!.getBoundingClientRect()
+        coords.left = rect.left
+        coords.top = rect.top + 26
+      }
+
+      if (coords) {
+        setMenuPos(coords)
+        setSuggestions([...new Set(matches.slice(0, maxSuggestions))])
+        setSelectedIndex(0)
+        setShowMenu(true)
+        return // Exit, menu is open
+      }
+    }
+
+    setShowMenu(false)
+  }
+
   const insertSuggestion = (suggestion: string) => {
     // find the token we're currently on
     const cursorPos = cursorRef.current || 0
@@ -70,7 +100,7 @@ export const useAutocomplete = (
     const afterToken = text.slice(token.end)
 
     // add a space after if it's a variable
-    const suffix = Object.values(Operator).includes(suggestion as Operator) ? '' : ' '
+    const suffix = suggestion === Operator.NOT ? '' : ' '
     const newText = beforeToken + suggestion + suffix + afterToken
 
     // update
@@ -99,6 +129,11 @@ export const useAutocomplete = (
         insertSuggestion(suggestions[selectedIndex])
       } else if (e.key === 'Escape') {
         setShowMenu(false)
+      }
+    } else {
+      if (e.key === 'Tab') {
+        e.preventDefault()
+        showStateSuggestions(editorRef.current?.innerText || '')
       }
     }
   }

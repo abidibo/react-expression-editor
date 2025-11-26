@@ -9,6 +9,7 @@ export interface ValidationResult {
   errorToken?: Token
   errorTokenIndex?: number
   errorCharPosition?: number
+  state?: MachineState
 }
 export const validate = (tokens: Token[], variables: string[], constraintVariables: boolean): ValidationResult => {
   // At the beginning of the string we are expecting a value, a unary operator or a parenthesis
@@ -31,6 +32,7 @@ export const validate = (tokens: Token[], variables: string[], constraintVariabl
         errorToken: token,
         errorTokenIndex: i,
         errorCharPosition: currentPosition,
+        state,
       }
     }
     switch (state) {
@@ -50,13 +52,18 @@ export const validate = (tokens: Token[], variables: string[], constraintVariabl
   }
 
   if (parenDepth !== 0) {
-    return { isValid: false, error: 'Unbalanced parentheses', errorCharPosition: currentPosition }
+    return { isValid: false, error: 'Unbalanced parentheses', errorCharPosition: currentPosition, state }
   }
 
   // if we end in EXPECT_OPERAND, it means we have a dangling operator (e.g., "v1 &&")
   if (state === MachineState.EXPECT_OPERAND && tokens.filter((t) => t.type !== TokenType.SPACE).length > 0) {
-    return { isValid: false, error: 'Expression cannot end with an operator', errorCharPosition: currentPosition }
+    return {
+      isValid: false,
+      error: 'Expression cannot end with an operator',
+      errorCharPosition: currentPosition,
+      state,
+    }
   }
 
-  return { isValid: true, error: null }
+  return { isValid: true, error: null, state }
 }
