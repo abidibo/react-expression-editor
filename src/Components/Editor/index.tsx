@@ -1,10 +1,9 @@
-import { useState, useRef, useLayoutEffect } from 'react'
+import { useRef, useLayoutEffect } from 'react'
 
 import { useAutocomplete, useValidateHtml } from '../../Hooks'
-import { ValidationResult } from '../../StateMachine/Validation'
 import AutoCompleteMenu from '../AutoCompleteMenu'
 import styles from './Editor.module.css'
-import { cssClass, generateHighlightHtml, getCaretIndex, setCaretIndex } from './Helpers'
+import { cssClass, getCaretIndex, setCaretIndex } from './Helpers'
 
 export type EditorClasses = {
   root?: string // The outer wrapper
