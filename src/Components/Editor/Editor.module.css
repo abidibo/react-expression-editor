@@ -1,0 +1,43 @@
+.root {
+  position: relative;
+}
+
+.editor {
+  border: 1px solid #666;
+  padding: 10px;
+  minheight: 40px;
+  fontfamily: monospace;
+  whitespace: pre-wrap;
+  outline: none;
+  lineheight: 1.5;
+}
+
+.validation {
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  min-height: 20px;
+}
+
+.token_VAR {
+  color: #007acc;
+  font-weight: bold;
+}
+.token_NUM {
+  color: #098658;
+}
+.token_BINARY_OP {
+  color: #d00000;
+}
+.token_UNARY_OP {
+  color: #d00000;
+}
+.token_UNKNOWN {
+  text-decoration: underline wavy red;
+}
+
+.token_ERROR {
+  background-color: #ff0000;
+  color: #ffffff;
+}
