@@ -1,4 +1,4 @@
-import { Dispatch, MutableRefObject, RefObject, SetStateAction, useState } from 'react'
+import { MutableRefObject, RefObject, useState } from 'react'
 
 import { EditorClasses } from './Components/Editor'
 import { generateHighlightHtml, getCursorXY } from './Components/Editor/Helpers'
@@ -13,7 +13,7 @@ export const useAutocomplete = (
   editorRef: RefObject<HTMLDivElement>,
   text: string,
   setText: (text: string) => void,
-  classes?: EditorClasses,
+  maxSuggestions: number,
 ) => {
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [showMenu, setShowMenu] = useState(false)
@@ -34,15 +34,22 @@ export const useAutocomplete = (
     if (validTrigger && token.value.trim().length > 0) {
       const matchText = token.value.toLowerCase()
 
+      // get matches that start with the current token
       const matches = AUTOCOMPLETE_POOL.filter(
         (item) => item.toLowerCase().startsWith(matchText) && item !== token.value,
       )
+      if (matches.length < maxSuggestions) {
+        // get matches that contain the current token
+        matches.push(
+          ...AUTOCOMPLETE_POOL.filter((item) => item.toLowerCase().includes(matchText) && item !== token.value),
+        )
+      }
 
       if (matches.length > 0) {
         const coords = getCursorXY()
         if (coords) {
           setMenuPos(coords)
-          setSuggestions(matches)
+          setSuggestions([...new Set(matches.slice(0, maxSuggestions))])
           setSelectedIndex(0)
           setShowMenu(true)
           return // Exit, menu is open
@@ -115,10 +122,9 @@ export const useValidateHtml = (
   constraintVariables: boolean,
   classes?: EditorClasses,
 ) => {
-  const [html, setHtml] = useState(
-    generateHighlightHtml(tokenize(initialValue), variables, constraintVariables, classes).html,
-  )
-  const [validation, setValidation] = useState<ValidationResult | null>(null)
+  const tokens = tokenize(initialValue)
+  const [validation, setValidation] = useState<ValidationResult>(validate(tokens, variables, constraintVariables))
+  const [html, setHtml] = useState(generateHighlightHtml(tokenize(initialValue), validation, classes))
 
   const updateHtml = (plainText: string) => {
     const tokens = tokenize(plainText)

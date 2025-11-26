@@ -29,6 +29,7 @@ type EditorProps = {
   variables?: string[]
   constraintVariables?: boolean
   showValidationText?: boolean
+  maxSuggestions?: number
   classes?: EditorClasses
 }
 const Editor: React.FC<EditorProps> = ({
@@ -38,6 +39,7 @@ const Editor: React.FC<EditorProps> = ({
   showValidationText,
   variables = [],
   constraintVariables = false,
+  maxSuggestions = 10,
   classes,
 }) => {
   const editorRef = useRef<HTMLDivElement>(null)
@@ -49,7 +51,7 @@ const Editor: React.FC<EditorProps> = ({
 
   // autocomplete
   const { updateSuggestions, showMenu, menuPos, suggestions, selectedIndex, handleKeyDown, insertSuggestion } =
-    useAutocomplete(updateHtml, variables, cursorRef, editorRef, value, onChange, classes)
+    useAutocomplete(updateHtml, variables, cursorRef, editorRef, value, onChange, maxSuggestions)
 
   const handleInput = () => {
     if (!editorRef.current) return

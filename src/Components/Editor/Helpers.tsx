@@ -1,6 +1,6 @@
 import { EditorClasses } from '.'
-import { validate, ValidationResult } from '../../StateMachine/Validation'
-import { Token, tokenize, TokenType } from '../../Tokenizer'
+import { ValidationResult } from '../../StateMachine/Validation'
+import { Token, TokenType } from '../../Tokenizer'
 import styles from './Editor.module.css'
 
 export const cssClass = (dft: string, custom?: string) => (custom ? custom : dft)
