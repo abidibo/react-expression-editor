@@ -1,6 +1,6 @@
 {
   "name": "@abidibo/react-expression-editor",
-  "version": "0.2.7",
+  "version": "0.1.0",
   "description": "A react component for wrting logical expressions",
   "repository": {
     "type": "git",
