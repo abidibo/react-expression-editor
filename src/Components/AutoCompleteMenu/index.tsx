@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 import { Operator } from '../../Config/Operators'
 import { EditorClasses } from '../Editor'
 import { cssClass } from '../Editor/Helpers'
@@ -17,9 +19,22 @@ const AutoCompleteMenu: React.FC<AutoCompleteMenuProps> = ({
   insertSuggestion,
   classes,
 }) => {
+  const menuRef = useRef<HTMLUListElement>(null)
+  useEffect(() => {
+    // Check if menu exists and has children
+    if (menuRef.current) {
+      const selectedItem = menuRef.current.children[selectedIndex]
+
+      if (selectedItem) {
+        // The magic one-liner
+        selectedItem.scrollIntoView({ block: 'nearest' })
+      }
+    }
+  }, [selectedIndex])
   return (
     <ul
       className={cssClass(styles.menu, classes?.menu)}
+      ref={menuRef}
       style={{
         top: menuPos.top,
         left: menuPos.left,
