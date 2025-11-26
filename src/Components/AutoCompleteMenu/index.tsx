@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 
-import { Operator } from '../../Config/Operators'
 import { EditorClasses } from '../Editor'
 import { cssClass } from '../Editor/Helpers'
 import styles from './AutoCompleteMenu.module.css'
