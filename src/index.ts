@@ -1,3 +1,3 @@
-import ExpressionEditor from './Components/ExpressionEditor'
+import Editor from './Components/Editor'
 
-export { ExpressionEditor }
+export { Editor as ExpressionEditor }
