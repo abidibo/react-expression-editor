@@ -57,3 +57,51 @@ export const Default: Story = {
   },
   args: {},
 }
+
+export const NoVariableConstraint: Story = {
+  render: function Render(args) {
+    const [value, setValue] = React.useState('')
+    console.log('Current value', value)
+
+    return (
+      <div style={{ maxWidth: '100%', width: '600px' }}>
+        <Editor {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    constraintVariables: false,
+  },
+}
+
+export const NoValidationMessage: Story = {
+  render: function Render(args) {
+    const [value, setValue] = React.useState('')
+    console.log('Current value', value)
+
+    return (
+      <div style={{ maxWidth: '100%', width: '600px' }}>
+        <Editor {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    showValidationText: false,
+  },
+}
+
+export const InitialValue: Story = {
+  render: function Render(args) {
+    const [value, setValue] = React.useState('(engine.transmission.speed > 100) || !temperature')
+    console.log('Current value', value)
+
+    return (
+      <div style={{ maxWidth: '100%', width: '600px' }}>
+        <Editor {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    showValidationText: false,
+  },
+}

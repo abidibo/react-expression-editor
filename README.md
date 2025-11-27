@@ -1,6 +1,6 @@
 # React Expression Editor
 
-This is a React component for writing logical expressions like
+This is a React component which provides a controlled editor for writing logical expressions like
 
 ```
 (myVar == 3 || (myVar2 >= 4 && !myVar3)) && myVar4 != 6
@@ -47,7 +47,6 @@ The component accepts the following props:
 
 | Name                  | Type            | Default Value | Description                                                                            |
 | --------------------- | --------------- | ------------- | -------------------------------------------------------------------------------------- |
-| `initialValue`        | `string`        | ''            | The initial value of the expression                                                    |
 | `value`               | `string`        |               | The expression                                                                         |
 | `onChange`            | `function`      |               | A function to call when the expression changes                                         |
 | `allowedVariables`    | `string[]`      |               | An array of variable names that can be used in the expression                          |

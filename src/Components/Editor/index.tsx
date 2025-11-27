@@ -25,7 +25,6 @@ export type EditorClasses = {
 type EditorProps = {
   value: string
   onChange: (value: string) => void
-  initialValue?: string
   variables?: string[]
   constraintVariables?: boolean
   showValidationText?: boolean
@@ -35,7 +34,6 @@ type EditorProps = {
 const Editor: React.FC<EditorProps> = ({
   value,
   onChange,
-  initialValue = '',
   showValidationText,
   variables = [],
   constraintVariables = false,
@@ -44,7 +42,7 @@ const Editor: React.FC<EditorProps> = ({
 }) => {
   const editorRef = useRef<HTMLDivElement>(null)
 
-  const { html, validation, updateHtml } = useValidateHtml(initialValue, variables, constraintVariables, classes)
+  const { html, validation, updateHtml } = useValidateHtml(value, variables, constraintVariables, classes)
 
   // store the cursor position in a ref (doesn't trigger re-renders)
   const cursorRef = useRef<number>(0)
