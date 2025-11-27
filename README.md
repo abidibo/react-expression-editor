@@ -56,9 +56,9 @@ The component accepts the following props:
 
 | Name                  | Type            | Default Value | Description                                                                            |
 | --------------------- | --------------- | ------------- | -------------------------------------------------------------------------------------- |
-| `value`               | `string`        |               | The expression                                                                         |
-| `onChange`            | `function`      |               | A function to call when the expression changes                                         |
-| `allowedVariables`    | `string[]`      |               | An array of variable names that can be used in the expression                          |
+| `value`               | `string`        |               | The expression (Required)                                                              |
+| `onChange`            | `function`      |               | A function to call when the expression changes (Required)                              |
+| `allowedVariables`    | `string[]`      | []            | An array of variable names that can be used in the expression                          |
 | `maxSuggestions`      | `number`        | 10            | The maximum number of suggestions to show                                              |
 | `constraintVariables` | `boolean`       | false         | If true, the expression will be validated against the allowed variables                |
 | `showValidationText`  | `boolean`       | false         | If true, a validation message is always shown under the editor                         |
