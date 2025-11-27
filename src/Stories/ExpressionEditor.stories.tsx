@@ -105,3 +105,43 @@ export const InitialValue: Story = {
     showValidationText: false,
   },
 }
+
+export const CustomClasses: Story = {
+  render: function Render(args) {
+    const [value, setValue] = React.useState('(engine.transmission.speed > 100) || !temperature')
+    console.log('Current value', value)
+
+    const css = `
+      .c-root {
+        background-color: #222;
+        color: #fff;
+      }
+      .token-var {
+        color: #fff;
+      }
+
+      .token-binary-op {
+        color: green;
+      }
+
+      .token-num {
+        color: yellow;
+      }
+    `
+
+    return (
+      <div style={{ maxWidth: '100%', width: '600px' }}>
+        <style>{css}</style>
+        <Editor {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    classes: {
+      root: 'c-root',
+      tokenVar: 'token-var',
+      tokenBinaryOp: 'token-binary-op',
+      tokenNum: 'token-num',
+    },
+  },
+}
