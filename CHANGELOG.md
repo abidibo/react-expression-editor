@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/abidibo/react-expression-editor/compare/v1.0.0...v1.0.1) (2025-11-27)
+
+
+### Bug Fixes
+
+* docs ([1d35389](https://github.com/abidibo/react-expression-editor/commit/1d35389caea261fd0ecd3495b5a8b0bc66bc0b1b))
+
 # 1.0.0 (2025-11-27)
 
 
