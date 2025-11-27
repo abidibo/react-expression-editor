@@ -14,7 +14,7 @@ It provides:
 
 Autocomplete:
 
-- it activates on keydown
+- it activates automatically when the user types a character
 - it can be manually activated with tab even if no characters have been typed
 - it can be manually deactivated with escape
 - navigate the suggestions with arrow keys, accept with enter, and cancel with escape
