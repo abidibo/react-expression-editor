@@ -12,6 +12,8 @@ It provides:
 - auto-completion
 - custom styling
 
+[Demo](https://abidibo.github.io/react-expression-editor)
+
 ## Getting Started
 
 Install the package:
