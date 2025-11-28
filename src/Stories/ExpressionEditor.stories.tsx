@@ -124,7 +124,7 @@ export const CustomClasses: Story = {
         color: green;
       }
 
-      .token-num {
+      .token-value {
         color: yellow;
       }
     `
@@ -141,7 +141,7 @@ export const CustomClasses: Story = {
       root: 'c-root',
       tokenVar: 'token-var',
       tokenBinaryOp: 'token-binary-op',
-      tokenNum: 'token-num',
+      tokenValue: 'token-value',
     },
   },
 }

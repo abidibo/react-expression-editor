@@ -77,7 +77,7 @@ type EditorClasses = {
   tokenVar?: string // Variables
   tokenBinaryOp?: string // Binary operators (&&, ||)
   tokenUnaryOp?: string // Unary operators (!)
-  tokenNum?: string // Numbers
+  tokenValue?: string // Numbers
   tokenUnknown?: string // Errors
   tokenError?: string // Errors
 }

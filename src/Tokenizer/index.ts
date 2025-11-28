@@ -4,7 +4,7 @@ export enum TokenType {
   VAR = 'variable', // temperature, engine.transmission.speed
   VALUE = 'number', // 1, 2.5
   UNARY_OP = 'unary operator', // !
-  BINARY_OP = 'binary operator', // &&, ||, ==, >=, <=, !=, >, <
+  BINARY_OP = 'binary operator', // &&, ||, ==, >=, <=, !=, >, <, +, -, *, /
   OPEN_P = 'open parenthesis', // (
   CLOSE_P = 'close parenthesis', // )
   SPACE = 'space',
