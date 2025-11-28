@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/abidibo/react-expression-editor/compare/v1.1.1...v1.1.2) (2025-11-28)
+
+
+### Bug Fixes
+
+* export conffiguration in package.json ([af61b1f](https://github.com/abidibo/react-expression-editor/commit/af61b1f73ba95a6e27e6d9f962751ab9b8fa718a))
+* use absolute positioning for suggestions menu ([d1afe9f](https://github.com/abidibo/react-expression-editor/commit/d1afe9f88af9abc1251e043105f058443d9a3df2))
+
 ## [1.1.1](https://github.com/abidibo/react-expression-editor/compare/v1.1.0...v1.1.1) (2025-11-28)
 
 
