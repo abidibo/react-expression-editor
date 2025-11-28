@@ -80,7 +80,7 @@ const Editor: React.FC<EditorProps> = ({
   }, [html, showMenu, selectedIndex]) // ahould run every time the editable content is rendered
 
   return (
-    <div className={cssClass(styles.root, classes?.root)}>
+    <div style={{ position: 'relative' }} className={cssClass(styles.root, classes?.root)}>
       <div
         ref={editorRef}
         contentEditable
