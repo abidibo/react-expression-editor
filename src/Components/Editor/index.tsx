@@ -96,6 +96,7 @@ const Editor: React.FC<EditorProps> = ({
           menuPos={menuPos}
           selectedIndex={selectedIndex}
           insertSuggestion={insertSuggestion}
+          classes={classes}
         />
       )}
       {showValidationText && (
