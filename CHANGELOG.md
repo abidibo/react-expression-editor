@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/abidibo/react-expression-editor/compare/v1.1.2...v1.1.3) (2025-11-28)
+
+
+### Bug Fixes
+
+* pass classes prop to suggestion menu ([743ae06](https://github.com/abidibo/react-expression-editor/commit/743ae06143d0dd47a0a30f32ad83a31bf081b896))
+
 ## [1.1.2](https://github.com/abidibo/react-expression-editor/compare/v1.1.1...v1.1.2) (2025-11-28)
 
 
