@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/abidibo/react-expression-editor/compare/v1.1.0...v1.1.1) (2025-11-28)
+
+
+### Bug Fixes
+
+* export operator ([31bb645](https://github.com/abidibo/react-expression-editor/commit/31bb645665f34222de783123ffcbddf3998e868b))
+
 # [1.1.0](https://github.com/abidibo/react-expression-editor/compare/v1.0.1...v1.1.0) (2025-11-28)
 
 
