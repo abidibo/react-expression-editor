@@ -12,7 +12,7 @@ const ExpectOperand = {
         break
       // if we got a value, perfect, then we expect an operator
       case TokenType.VAR:
-      case TokenType.NUM:
+      case TokenType.VALUE:
         nextState = MachineState.EXPECT_OPERATOR
         break
       // if we got a parenthesis we stay in the same state but we increase the depth of parenthesis

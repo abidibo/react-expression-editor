@@ -19,7 +19,7 @@ export const generateHighlightHtml = (tokens: Token[], validation: ValidationRes
         case TokenType.VAR:
           className = cssClass(styles.token_VAR, classes?.tokenVar)
           break
-        case TokenType.NUM:
+        case TokenType.VALUE:
           className = cssClass(styles.token_NUM, classes?.tokenNum)
           break
         case TokenType.BINARY_OP:

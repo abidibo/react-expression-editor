@@ -22,7 +22,7 @@ const ExpectOperator = {
         }
         break
       case TokenType.VAR:
-      case TokenType.NUM:
+      case TokenType.VALUE:
         error = `Expected operator, found "${token.value}"`
       case TokenType.OPEN_P:
         error = 'Implicit multiplication not allowed. Use an operator like && or ||'

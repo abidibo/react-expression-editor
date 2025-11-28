@@ -1,6 +1,8 @@
+import { Operator, OperatorRegex, UnaryOperators } from '../Config/Operators'
+
 export enum TokenType {
   VAR = 'variable', // temperature, engine.transmission.speed
-  NUM = 'number', // 1, 2.5
+  VALUE = 'number', // 1, 2.5
   UNARY_OP = 'unary operator', // !
   BINARY_OP = 'binary operator', // &&, ||, ==, >=, <=, !=, >, <
   OPEN_P = 'open parenthesis', // (
@@ -10,15 +12,22 @@ export enum TokenType {
 }
 
 // order matters!
-export const Patterns = [
-  { type: TokenType.SPACE, regex: /^\s+/ },
-  { type: TokenType.NUM, regex: /^(?:\d+(\.\d*)?|\.\d+)/ },
-  { type: TokenType.BINARY_OP, regex: /^(==|!=|>=|<=|&&|\|\||>|<)/ },
-  { type: TokenType.UNARY_OP, regex: /^!/ },
-  { type: TokenType.OPEN_P, regex: /^\(/ },
-  { type: TokenType.CLOSE_P, regex: /^\)/ },
-  { type: TokenType.VAR, regex: /^[a-zA-Z_][\w.]*/ },
-]
+export const Patterns = (operators: Operator[]) => {
+  const sortedOperators = operators
+    .filter((op) => !UnaryOperators.includes(op))
+    .sort((a, b) => b.length - a.length || a.localeCompare(b))
+  const binaryOpRegex = new RegExp(`^(${sortedOperators.map((op) => OperatorRegex[op]).join('|')})`)
+
+  return [
+    { type: TokenType.SPACE, regex: /^\s+/ },
+    { type: TokenType.VALUE, regex: /^(?:\d+(?:\.\d*)?|\.\d+|true|false)/ },
+    { type: TokenType.BINARY_OP, regex: binaryOpRegex },
+    { type: TokenType.UNARY_OP, regex: /^!/ },
+    { type: TokenType.OPEN_P, regex: /^\(/ },
+    { type: TokenType.CLOSE_P, regex: /^\)/ },
+    { type: TokenType.VAR, regex: /^[a-zA-Z_][\w.]*/ },
+  ]
+}
 
 export interface Token {
   type: TokenType
@@ -28,7 +37,8 @@ export interface Token {
 }
 
 // take the input and return an array of tokens
-export const tokenize = (input: string): Token[] => {
+export const tokenize = (input: string, availableOperators: Operator[]): Token[] => {
+  const operators = availableOperators.length > 0 ? availableOperators : Object.values(Operator)
   let tokens: Token[] = []
   let cursor: number = 0
 
@@ -37,7 +47,7 @@ export const tokenize = (input: string): Token[] => {
     const remainingInput = input.slice(cursor)
 
     // Try to match the current text against our patterns
-    for (const { type, regex } of Patterns) {
+    for (const { type, regex } of Patterns(operators)) {
       const match = remainingInput.match(regex)
 
       if (match) {
@@ -73,9 +83,10 @@ export const tokenize = (input: string): Token[] => {
 // get the token that the cursor is currently on
 export const getActiveToken = (
   input: string,
+  availableOperators: Operator[],
   cursorPosition: number,
 ): Omit<Token, 'type'> & { type: TokenType | null } => {
-  const tokens = tokenize(input)
+  const tokens = tokenize(input, availableOperators)
 
   // Find the token that contains the cursor
   // Note: We check if cursor is >= start AND <= end.

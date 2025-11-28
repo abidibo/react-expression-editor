@@ -2,7 +2,7 @@ import { MutableRefObject, RefObject, useState } from 'react'
 
 import { EditorClasses } from './Components/Editor'
 import { generateHighlightHtml, getCursorXY } from './Components/Editor/Helpers'
-import { Operator } from './Config/Operators'
+import { Operator, UnaryOperators } from './Config/Operators'
 import { MachineState } from './StateMachine/States'
 import { validate, ValidationResult } from './StateMachine/Validation'
 import { getActiveToken, tokenize, TokenType } from './Tokenizer'
@@ -10,6 +10,7 @@ import { getActiveToken, tokenize, TokenType } from './Tokenizer'
 export const useAutocomplete = (
   updateHtml: (plainText: string) => void,
   variables: string[],
+  operators: Operator[],
   cursorRef: MutableRefObject<number>,
   editorRef: RefObject<HTMLDivElement>,
   text: string,
@@ -21,11 +22,12 @@ export const useAutocomplete = (
   const [menuPos, setMenuPos] = useState({ top: 0, left: 0 })
   const [selectedIndex, setSelectedIndex] = useState(0)
 
-  const AUTOCOMPLETE_POOL = [...variables, ...Object.values(Operator)]
+  const availableOperators = operators.length > 0 ? operators : Object.values(Operator)
+  const AUTOCOMPLETE_POOL = [...variables, ...availableOperators]
 
   const updateSuggestions = (plainText: string, caretPosition: number) => {
     // Check what is under the cursor
-    const token = getActiveToken(plainText, caretPosition)
+    const token = getActiveToken(plainText, availableOperators, caretPosition)
     if (!token.type) return
 
     // Triggers: Variables (VAR), Operators (OP), or Unknown/Partial words
@@ -63,12 +65,12 @@ export const useAutocomplete = (
 
   const showStateSuggestions = (plainText: string) => {
     // Check what is under the cursor
-    const { state } = validate(tokenize(plainText), variables, false)
+    const { state } = validate(tokenize(plainText, availableOperators), variables, false)
 
     const matches =
       state == MachineState.EXPECT_OPERAND
-        ? [...variables, Operator.NOT]
-        : Object.values(Operator).filter((op) => op !== Operator.NOT)
+        ? [...variables, ...UnaryOperators]
+        : availableOperators.filter((op) => !UnaryOperators.includes(op))
 
     if (matches.length > 0) {
       const coords = getCursorXY()
@@ -93,14 +95,14 @@ export const useAutocomplete = (
   const insertSuggestion = (suggestion: string) => {
     // find the token we're currently on
     const cursorPos = cursorRef.current || 0
-    const token = getActiveToken(text, cursorPos)
+    const token = getActiveToken(text, availableOperators, cursorPos)
 
     // replace partial token with full suggestion
     const beforeToken = text.slice(0, token.start)
     const afterToken = text.slice(token.end)
 
     // add a space after if it's a variable
-    const suffix = suggestion === Operator.NOT ? '' : ' '
+    const suffix = UnaryOperators.includes(suggestion as Operator) ? '' : ' '
     const prefix = token.type === TokenType.SPACE ? ' ' : ''
     const newText = beforeToken + prefix + suggestion + suffix + afterToken
 
@@ -155,15 +157,19 @@ export const useAutocomplete = (
 export const useValidateHtml = (
   initialValue: string,
   variables: string[],
+  operators: Operator[],
   constraintVariables: boolean,
   classes?: EditorClasses,
 ) => {
-  const tokens = tokenize(initialValue)
+  const availableOperators = operators.length > 0 ? operators : Object.values(Operator)
+  const tokens = tokenize(initialValue, availableOperators)
   const [validation, setValidation] = useState<ValidationResult>(validate(tokens, variables, constraintVariables))
-  const [html, setHtml] = useState(generateHighlightHtml(tokenize(initialValue), validation, classes))
+  const [html, setHtml] = useState(
+    generateHighlightHtml(tokenize(initialValue, availableOperators), validation, classes),
+  )
 
   const updateHtml = (plainText: string) => {
-    const tokens = tokenize(plainText)
+    const tokens = tokenize(plainText, availableOperators)
     const validation = validate(tokens, variables, constraintVariables)
     const html = generateHighlightHtml(tokens, validation, classes)
     setHtml(html)
