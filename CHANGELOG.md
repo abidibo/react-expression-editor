@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/abidibo/react-expression-editor/compare/v1.0.1...v1.1.0) (2025-11-28)
+
+
+### Bug Fixes
+
+* value token css ([ecc9842](https://github.com/abidibo/react-expression-editor/commit/ecc98423d33dbee6cd9195bf6f47f5a49d7028a0))
+
+
+### Features
+
+* add operators prop and true, false values ([14eb816](https://github.com/abidibo/react-expression-editor/commit/14eb81683ff8afb946a624f5fc7e73251b47444e))
+
 ## [1.0.1](https://github.com/abidibo/react-expression-editor/compare/v1.0.0...v1.0.1) (2025-11-27)
 
 
