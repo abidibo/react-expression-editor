@@ -51,6 +51,8 @@ Use it
 
 ```jsx
 import { ExpressionEditor, Operator } from '@abidibo/react-expression-editor'
+// if you don't provide custom classes
+import '@abidibo/react-expression-editor/dist/index.esm.css'
 
 function App() {
   const [expression, setExpression] = useState('')
