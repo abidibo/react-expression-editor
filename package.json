@@ -25,9 +25,11 @@
   "exports": {
     ".": {
       "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js"
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/index.d.ts",
+      "style": "./dist/index.esm.css"
     },
-    "./style": "./dist/index.esm.css"
+    "./dist/index.esm.css": "./dist/index.esm.css"
   },
   "scripts": {
     "clean": "rimraf dist",
