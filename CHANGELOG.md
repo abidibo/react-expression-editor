@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/abidibo/react-expression-editor/compare/v1.1.3...v1.2.0) (2025-12-01)
+
+
+### Features
+
+* use portal for autocomplete menu ([c536b75](https://github.com/abidibo/react-expression-editor/commit/c536b754677db34f073f0e4acb8c802ff230cfd5))
+
 ## [1.1.3](https://github.com/abidibo/react-expression-editor/compare/v1.1.2...v1.1.3) (2025-11-28)
 
 
