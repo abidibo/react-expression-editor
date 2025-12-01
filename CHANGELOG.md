@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/abidibo/react-expression-editor/compare/v1.2.1...v1.2.2) (2025-12-01)
+
+
+### Bug Fixes
+
+* add default styles to autocomplete menu ([882b102](https://github.com/abidibo/react-expression-editor/commit/882b102e2741ac4451b08b3dfe046599e8814f17))
+
 ## [1.2.1](https://github.com/abidibo/react-expression-editor/compare/v1.2.0...v1.2.1) (2025-12-01)
 
 
