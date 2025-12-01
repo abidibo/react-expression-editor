@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/abidibo/react-expression-editor/compare/v1.2.0...v1.2.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* add pointer events to autocomplete menu ([420c00d](https://github.com/abidibo/react-expression-editor/commit/420c00d18819d1b16b293f47412dbc48aeb0dc7b))
+
 # [1.2.0](https://github.com/abidibo/react-expression-editor/compare/v1.1.3...v1.2.0) (2025-12-01)
 
 
