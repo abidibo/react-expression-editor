@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/abidibo/react-expression-editor/compare/v1.2.2...v1.3.0) (2025-12-01)
+
+
+### Features
+
+* add on validation change prop ([1a93fb4](https://github.com/abidibo/react-expression-editor/commit/1a93fb4a0ceaeea6c966c173d94a5912017c431f))
+
 ## [1.2.2](https://github.com/abidibo/react-expression-editor/compare/v1.2.1...v1.2.2) (2025-12-01)
 
 
