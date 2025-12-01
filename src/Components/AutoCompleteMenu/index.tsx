@@ -38,6 +38,8 @@ const AutoCompleteMenu: React.FC<AutoCompleteMenuProps> = ({
         top: menuPos.top,
         left: menuPos.left,
         pointerEvents: 'auto',
+        position: 'fixed',
+        zIndex: 9999,
       }}
     >
       {suggestions.map((item, index) => (
