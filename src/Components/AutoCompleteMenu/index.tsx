@@ -37,6 +37,7 @@ const AutoCompleteMenu: React.FC<AutoCompleteMenuProps> = ({
       style={{
         top: menuPos.top,
         left: menuPos.left,
+        pointerEvents: 'auto',
       }}
     >
       {suggestions.map((item, index) => (
