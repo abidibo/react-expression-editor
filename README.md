@@ -77,16 +77,17 @@ function App() {
 
 The component accepts the following props:
 
-| Name                  | Type            | Default Value | Description                                                                            |
-| --------------------- | --------------- | ------------- | -------------------------------------------------------------------------------------- |
-| `value`               | `string`        |               | The expression (Required)                                                              |
-| `onChange`            | `function`      |               | A function to call when the expression changes (Required)                              |
-| `variables`           | `string[]`      | []            | An array of variable names that can be used in the expression                          |
-| `operators`           | `Operator[]`    | []            | An array of operators that can be used in the expression (all if empty)                |
-| `maxSuggestions`      | `number`        | 10            | The maximum number of suggestions to show                                              |
-| `constraintVariables` | `boolean`       | false         | If true, the expression will be validated against the allowed variables                |
-| `showValidationText`  | `boolean`       | false         | If true, a validation message is always shown under the editor                         |
-| `classes`             | `EditorClasses` |               | A set of classes to apply to the editor and other elements to customize the appearance |
+| Name                  | Type                                     | Default Value | Description                                                                            |
+| --------------------- | ---------------------------------------- | ------------- | -------------------------------------------------------------------------------------- |
+| `value`               | `string`                                 |               | The expression (Required)                                                              |
+| `onChange`            | `function`                               |               | A function to call when the expression changes (Required)                              |
+| `variables`           | `string[]`                               | []            | An array of variable names that can be used in the expression                          |
+| `operators`           | `Operator[]`                             | []            | An array of operators that can be used in the expression (all if empty)                |
+| `maxSuggestions`      | `number`                                 | 10            | The maximum number of suggestions to show                                              |
+| `constraintVariables` | `boolean`                                | false         | If true, the expression will be validated against the allowed variables                |
+| `showValidationText`  | `boolean`                                | false         | If true, a validation message is always shown under the editor                         |
+| `classes`             | `EditorClasses`                          |               | A set of classes to apply to the editor and other elements to customize the appearance |
+| `onValidationChange`  | `(validation: ValidationResult) => void` |               | A function to call when the validation changes                                         |
 
 ```ts
 enum Operator {
@@ -120,6 +121,38 @@ type EditorClasses = {
   tokenValue?: string // Numbers
   tokenUnknown?: string // Errors
   tokenError?: string // Errors
+}
+
+interface ValidationResult {
+  isValid: boolean
+  error: string | null
+  errorToken?: Token
+  errorTokenIndex?: number
+  errorCharPosition?: number
+  state?: MachineState
+}
+
+enum MachineState {
+  EXPECT_OPERAND = 'expect operand',
+  EXPECT_OPERATOR = 'expect operator',
+}
+
+interface Token {
+  type: TokenType
+  value: string
+  start: number
+  end: number
+}
+
+export enum TokenType {
+  VAR = 'variable',
+  VALUE = 'value',
+  UNARY_OP = 'unary operator',
+  BINARY_OP = 'binary operator',
+  OPEN_P = 'open parenthesis',
+  CLOSE_P = 'close parenthesis',
+  SPACE = 'space',
+  UNKNOWN = 'unknown',
 }
 ```
 

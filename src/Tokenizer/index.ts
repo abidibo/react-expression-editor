@@ -2,7 +2,7 @@ import { Operator, OperatorRegex, UnaryOperators } from '../Config/Operators'
 
 export enum TokenType {
   VAR = 'variable', // temperature, engine.transmission.speed
-  VALUE = 'number', // 1, 2.5
+  VALUE = 'value', // 1, 2.5
   UNARY_OP = 'unary operator', // !
   BINARY_OP = 'binary operator', // &&, ||, ==, >=, <=, !=, >, <, +, -, *, /
   OPEN_P = 'open parenthesis', // (

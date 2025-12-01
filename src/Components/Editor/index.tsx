@@ -1,8 +1,9 @@
-import { useRef, useLayoutEffect } from 'react'
+import { useRef, useLayoutEffect, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import { Operator } from '../../Config/Operators'
 import { useAutocomplete, useValidateHtml } from '../../Hooks'
+import { ValidationResult } from '../../StateMachine/Validation'
 import AutoCompleteMenu from '../AutoCompleteMenu'
 import styles from './Editor.module.css'
 import { cssClass, getCaretIndex, setCaretIndex } from './Helpers'
@@ -33,6 +34,7 @@ type EditorProps = {
   showValidationText?: boolean
   maxSuggestions?: number
   classes?: EditorClasses
+  onValidationChange?: (validation: ValidationResult) => void
 }
 const Editor: React.FC<EditorProps> = ({
   value,
@@ -43,10 +45,18 @@ const Editor: React.FC<EditorProps> = ({
   constraintVariables = false,
   maxSuggestions = 10,
   classes,
+  onValidationChange,
 }) => {
   const editorRef = useRef<HTMLDivElement>(null)
 
   const { html, validation, updateHtml } = useValidateHtml(value, variables, operators, constraintVariables, classes)
+
+  // notify validation change if necessary
+  useEffect(() => {
+    if (onValidationChange) {
+      onValidationChange(validation)
+    }
+  }, [validation, onValidationChange])
 
   // store the cursor position in a ref (doesn't trigger re-renders)
   const cursorRef = useRef<number>(0)
