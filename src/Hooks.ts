@@ -51,10 +51,10 @@ export const useAutocomplete = (
       if (matches.length > 0) {
         const coords = getCursorXY() // coordinates relative to the viewport
         if (coords) {
-          // convert coordintates to those relative to the editor
-          const rect = editorRef.current!.getBoundingClientRect()
-          coords.left = coords.left - rect.left
-          coords.top = coords.top - rect.top
+          // convert coordintates to those relative to the editor if using absolute positioning
+          // const rect = editorRef.current!.getBoundingClientRect()
+          // coords.left = coords.left - rect.left
+          // coords.top = coords.top - rect.top
           setMenuPos(coords)
           setSuggestions([...new Set(matches.slice(0, maxSuggestions))])
           setSelectedIndex(0)
@@ -78,10 +78,16 @@ export const useAutocomplete = (
 
     if (matches.length > 0) {
       const coords = getCursorXY()
-      if (coords) {
+      if (coords?.left === 0 && coords?.top === 0) {
         const rect = editorRef.current!.getBoundingClientRect()
-        coords.left = coords.left === 0 && coords.top === 0 ? 0 : coords.left - rect.left
-        coords.top = coords.top === 0 && coords.left === 0 ? 26 : coords.top - rect.top
+        coords.left = rect.left
+        coords.top = rect.top + 26
+      }
+      if (coords) {
+        // if using absolute positioning
+        // const rect = editorRef.current!.getBoundingClientRect()
+        // coords.left = coords.left === 0 && coords.top === 0 ? 0 : coords.left - rect.left
+        // coords.top = coords.top === 0 && coords.left === 0 ? 26 : coords.top - rect.top
         setMenuPos(coords)
         setSuggestions([...new Set(matches.slice(0, maxSuggestions))])
         setSelectedIndex(0)

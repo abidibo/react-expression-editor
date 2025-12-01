@@ -1,5 +1,5 @@
 .menu {
-  position: absolute;
+  position: fixed;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 4px;

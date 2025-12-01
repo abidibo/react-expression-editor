@@ -1,4 +1,5 @@
 import { useRef, useLayoutEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 import { Operator } from '../../Config/Operators'
 import { useAutocomplete, useValidateHtml } from '../../Hooks'
@@ -89,16 +90,19 @@ const Editor: React.FC<EditorProps> = ({
         suppressContentEditableWarning={true} // react warns about this, we silence it
         dangerouslySetInnerHTML={{ __html: html }}
         className={cssClass(styles.editor, classes?.editor)}
+        style={{ whiteSpace: 'pre-wrap' }}
       />
-      {showMenu && (
-        <AutoCompleteMenu
-          suggestions={suggestions}
-          menuPos={menuPos}
-          selectedIndex={selectedIndex}
-          insertSuggestion={insertSuggestion}
-          classes={classes}
-        />
-      )}
+      {showMenu &&
+        createPortal(
+          <AutoCompleteMenu
+            suggestions={suggestions}
+            menuPos={menuPos}
+            selectedIndex={selectedIndex}
+            insertSuggestion={insertSuggestion}
+            classes={classes}
+          />,
+          document.body,
+        )}
       {showValidationText && (
         <div className={cssClass(styles.validation, classes?.validation)}>
           {validation?.error && `${validation.error} at character ${validation.errorCharPosition}`}

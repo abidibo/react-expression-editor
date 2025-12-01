@@ -39,10 +39,6 @@ Available operators:
 | `*`      | multiplication           | Binary |
 | `/`      | division                 | Binary |
 
-> [!IMPORTANT]
-> If you use custom classes, the default styles will not be merged. Be sure to add some important rules, for example:
-> `white-space: pre-wrap;` on the editor element.
-
 ## Getting Started
 
 Install the package:
